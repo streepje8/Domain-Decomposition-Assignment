@@ -4,61 +4,96 @@ title Domain Decomposition Assignment
 skinparam componentStyle uml2
 
 'CLASSES
-
+'Base Stucture
 class Cappy {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- FlightSpeed: float
+- HasBounce: bool
+~ Direction: Vector3
+~ Force: Vector3
   .. Methods ..
--Throw(): void { Vector3 direction, Vector3 force }
-
+-Throw(): public void { Vector3 direction, Vector3 force }
+~Awake(): void {}
+~Update(): void {}
+}
+class Mario {
+  .. Fields ..
+- JumpForce: float
+- WalkSpeed: float
+  .. Methods ..
+-Jump(): public void { }
+~Awake(): void {}
+~Update(): void { }
 }
 
 abstract class InteractionInitiator {
-  .. Fields ..
-- Name: Type { arg1, arg2, argn }
   .. Methods ..
--OnTriggerEnter(): void { Collider other }
-
+~OnCollisionEnter(): void { Collider other }
 }
 
-class Frog {
+abstract class Capturable {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- InCapture: bool { get; private set; }
   .. Methods ..
--Update(): void { }
-
-}
-
-interface ICapturable {
-  .. Fields ..
-- Name: Type { arg1, arg2, argn }
-  .. Methods ..
-
+#OnCaptureStart(): virtual void {}
++CaptureUpdate(): abstract void {}
+#OnCaptureEnd(): virtual void {}
 }
 
 interface IInteractable {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- HasCooldown: bool
+- OnCooldown: bool { get; private set; }
+- CooldownTime: float { get; private set; }
   .. Methods ..
--OnInteract(): void { InterationInitiator intiator }
+-OnInteract(): public void { InterationInitiator intiator }
 
 }
 
-abstract Standable {
+'Example Implementations
+class Frog {
   .. Fields ..
-- Name: Type { tmp, tmp2, tmp3 }
+- JumpForce: float
   .. Methods ..
--OnInteract(): void { InterationInitiator intiator }
+~Awake(): void {}
+~Update(): void {}
+}
 
+class TRex {
+  .. Fields ..
+- AttackCooldown: float { get; private set; }
+- DashPower: float
+- DashDuration: float
+  .. Methods ..
+-Dash(): public void {}
+-Attack(): public void {}
+~Awake(): void {}
+~Update(): void {}
+}
+
+class Glydon {
+  .. Fields ..
+- GlideGravity: float
+- IsGliding { get; private set; }
+  .. Methods ..
+-StartGlide(): public void {}
+-EndGlide(): public void {}
+~Awake(): void {}
+~Update(): void {}
 }
 
 'RELATIONS
-Cappy <|-down- InteractionInitiator: Extends
-IInteractable <|-up- InteractionInitiator: OnCollision With Calls OnInteract(this);
-Frog <|-down- ICapturable: Implements
-ICapturable <|-down- IInteractable: Implements
-Standable <|-down- IInteractable: Implements
+'Base Structure
+InteractionInitiator <|-up- Cappy: Extends
+InteractionInitiator <|-up- Mario: Extends
+Cappy <-left- Mario: Calls Throw function on user request
+IInteractable <-left- InteractionInitiator: OnCollision With Calls OnInteract(this);
+IInteractable <|-up- Capturable: Implements
 
+'Example implementations
+Capturable <|-up- Frog: Extends
+Capturable <|-up- TRex: Extends
+Capturable <|-up- Glydon: Extends
 
 note left
     This is a Note...
