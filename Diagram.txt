@@ -16,6 +16,7 @@ class Car {
 +Name(): Type { arg1, arg2, argn }
 #Name(): Type { arg1, arg2, argn }
 ~Name(): Type { arg1, arg2, argn }
+~Name(): Type { arg1, arg2, argn }
 
   .. Static Example ..
 +{static} Name(): Type { arg1, arg2, argn }
