@@ -31,4 +31,11 @@ ICar ()- Car
 ICar2 ()-- Car
 Car -() ICar3
 
+note left
+    This is a Note...
+    * It should be on the left side
+    * Wooo!
+    * Hi Wessel!
+end note
+
 @enduml
