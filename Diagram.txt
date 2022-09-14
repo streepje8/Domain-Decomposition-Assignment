@@ -1,62 +1,32 @@
+@startuml
+
+title Properties / Methods - Class Diagram
 
 
-                                          ┌─────────────────────────────────────┐
-                                          │                                     │
-                                          │      Test node                      │
-                                          │                                     │
-                                          │                                     │
-                                          │                                     │
-                                          │                                     │
-                                          │                                     │
-                                          │                                     │
-                                          └────────────────┬──┬─────────────────┘
-                                                           │  │
-                                                           │  │
-      ┌───────────────────────────┐                        │  │             ┌───────────────────────────┐
-      │                           │                        │  │             │                           │
-      │  Node B                   │                        │  │             │      Node A               │
-      │                           ├────────────────────────┘  └─────────────┤                           │
-      │                           │                                         │                           │
-      │                           │                                         │                           │
-      │                           │                                         │                           │
-      │                           │                                         │                           │
-      │                           │                                         │                           │
-      └───────────────────────────┘                                         └───────────────────────────┘
+skinparam componentStyle uml2
+class Car {
+  .. Field Examples ..
+- Name: Type { arg1, arg2, argn }
++Name: Type { arg1, arg2, argn }
+#Name: Type { arg1, arg2, argn }
+~Name: Type { arg1, arg2, argn }
 
+  .. Method Examples ..
+-Name(): Type { arg1, arg2, argn }
++Name(): Type { arg1, arg2, argn }
+#Name(): Type { arg1, arg2, argn }
+~Name(): Type { arg1, arg2, argn }
 
+  .. Static Example ..
++{static} Name(): Type { arg1, arg2, argn }
 
+  .. Abstract Example ..
++{abstract} Name(): Type { arg1, arg2, argn }
+}
 
+class Car
+ICar ()- Car
+ICar2 ()-- Car
+Car -() ICar3
 
-
-HELLO THERE
-HOW ARE YOU
-IM TESTING FOR MERGE CONFLICTS
-SUPER EPIC STUFF
-ADVANCED SIENCE
-
-                   ┌────────────────────┐
-                   │                    │
-                   │                    │
-                   │xxxx x x x xxxx     │
-                   │x  x x x x x  x     │
-                   │xxxx xx xx xxxx     │
-                   │                    │
-                   │                    │
-                   └─────────┬──────────┘
-                             │
-                             │
-                             │
-        ┌────────────────────┼─────────────────────┐
-        │                    │                     │
-        │                    │                     │
-        │                    │                     │
-        │                    │                     │
-┌───────▼───────┐    ┌───────▼───────┐    ┌────────▼──────┐
-│               │    │               │    │               │
-│ x  x x   x x x│    │               │    │               │
-│ x  x x x x x x│    │               │    │               │
-│ xxxx xx xx xxx│    │               │    │               │
-│               │    │               │    │               │
-│               │    │               │    │               │
-│               │    │               │    │               │
-└───────────────┘    └───────────────┘    └───────────────┘
+@enduml
