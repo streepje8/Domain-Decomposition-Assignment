@@ -5,12 +5,7 @@ skinparam componentStyle uml2
 '!theme crt-amber
 !pragma layout smetana
 
-Enum CoinType {
-  Normal,
-  Invisible,
-  Region,
-  CollectedRegion
-}
+
 
 'CLASSES
 'Base Stucture
@@ -21,6 +16,14 @@ note right
     * Sjors Kaagman
     * Wessel Roelofse
 end note
+
+Enum CoinType {
+  Normal,
+  Invisible,
+  Region,
+  CollectedRegion
+}
+
 class Cappy {
   .. Fields ..
 - FlightSpeed: float
@@ -158,7 +161,7 @@ Interactable <|-up- Pipe: Extends
 Interactable <|-right- Chest: Extends
 Interactable <|-up- Coin: Extends
 
-'For formatting
-Mario <-up- Credits: Start Here
+'For formatting (This line prevents an error in the compiler)
+'Mario <-up- Credits: Start Here
 
 @enduml
