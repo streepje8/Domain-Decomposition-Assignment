@@ -44,11 +44,20 @@ interface IInteractable {
 
 }
 
+abstract Standable {
+  .. Fields ..
+- Name: Type { tmp, tmp2, tmp3 }
+  .. Methods ..
+-OnInteract(): void { InterationInitiator intiator }
+
+}
+
 'RELATIONS
 Cappy <|-down- InteractionInitiator: Extends
 IInteractable <|-up- InteractionInitiator: OnCollision With Calls OnInteract(this);
 Frog <|-down- ICapturable: Implements
 ICapturable <|-down- IInteractable: Implements
+Standable <|-down- IInteractable: Implements
 
 
 note left
