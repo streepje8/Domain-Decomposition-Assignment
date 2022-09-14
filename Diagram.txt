@@ -2,6 +2,8 @@
 
 title Domain Decomposition Assignment
 skinparam componentStyle uml2
+'!theme crt-amber
+!pragma layout smetana
 
 Enum CoinType {
   Normal,
@@ -12,6 +14,13 @@ Enum CoinType {
 
 'CLASSES
 'Base Stucture
+class Credits
+note right
+    <b>THE LEGENDARY NOTE</b>
+    * Domain Decomposition Assignment
+    * Sjors Kaagman
+    * Wessel Roelofse
+end note
 class Cappy {
   .. Fields ..
 - FlightSpeed: float
@@ -60,11 +69,12 @@ class Interactable {
 
 }
 
-note left
-    This is the holy legendary note...
-    * We can not delete this for legal reasons
-    * It survived every merge, so we commit to it!
-    * All hail the holy note!
+note right
+    <b>The Interactable class splits the interaction back up.</b>
+    This way the collision code has to be written only once and
+    after adding a new Initiatior the Interactable can use a .GetType() 
+    to call a virtual function without having to modify any of the other 
+    classes.
 end note
 
 'Example Implementations
@@ -147,5 +157,8 @@ Interactable <|-up- Button: Extends
 Interactable <|-up- Pipe: Extends
 Interactable <|-right- Chest: Extends
 Interactable <|-up- Coin: Extends
+
+'For formatting
+Mario <-up- Credits: Start Here
 
 @enduml
