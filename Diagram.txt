@@ -4,6 +4,7 @@ title Domain Decomposition Assignment
 skinparam componentStyle uml2
 
 'CLASSES
+'Base Stucture
 class Cappy {
   .. Fields ..
 - FlightSpeed: float
@@ -11,22 +12,23 @@ class Cappy {
 ~ Direction: Vector3
 ~ Force: Vector3
   .. Methods ..
--Update(): void {}
--Throw(): void { Vector3 direction, Vector3 force }
+-Throw(): public void { Vector3 direction, Vector3 force }
+~Awake(): void {}
+~Update(): void {}
 }
 class Mario {
   .. Fields ..
 - JumpForce: float
 - WalkSpeed: float
   .. Methods ..
--Update(): void { }
--Jump(): void { }
+-Jump(): public void { }
+~Awake(): void {}
+~Update(): void { }
 }
 
 abstract class InteractionInitiator {
   .. Methods ..
--OnCollisionEnter(): void { Collider other }
-
+~OnCollisionEnter(): void { Collider other }
 }
 
 abstract class Capturable {
@@ -44,25 +46,55 @@ interface IInteractable {
 - OnCooldown: bool { get; private set; }
 - CooldownTime: float { get; private set; }
   .. Methods ..
--OnInteract(): void { InterationInitiator intiator }
+-OnInteract(): public void { InterationInitiator intiator }
 
 }
 
+
+'Example Implementations
 class Frog {
   .. Fields ..
 - JumpForce: float
   .. Methods ..
--Update(): void { }
+~Awake(): void {}
+~Update(): void {}
+}
 
+class TRex {
+  .. Fields ..
+- AttackCooldown: float { get; private set; }
+- DashPower: float
+- DashDuration: float
+  .. Methods ..
+-Dash(): public void {}
+-Attack(): public void {}
+~Awake(): void {}
+~Update(): void {}
+}
+
+class Glydon {
+  .. Fields ..
+- GlideGravity: float
+- IsGliding { get; private set; }
+  .. Methods ..
+-StartGlide(): public void {}
+-EndGlide(): public void {}
+~Awake(): void {}
+~Update(): void {}
 }
 
 'RELATIONS
+'Base Structure
 InteractionInitiator <|-up- Cappy: Extends
-InteractionInitiator <|-up- Mario: ExtendsScratch area...
+InteractionInitiator <|-up- Mario: Extends
 Cappy <-left- Mario: Calls Throw function on user request
 IInteractable <-left- InteractionInitiator: OnCollision With Calls OnInteract(this);
-Capturable <|-up- Frog: Extends
 IInteractable <|-up- Capturable: Implements
+
+'Example implementations
+Capturable <|-up- Frog: Extends
+Capturable <|-up- TRex: Extends
+Capturable <|-up- Glydon: Extends
 
 
 @enduml
