@@ -9,6 +9,7 @@ class Car {
 - Name: Type { arg1, arg2, argn }
 +Name: Type { arg1, arg2, argn }
 #Name: Type { arg1, arg2, argn }
+#Name: Type { arg1, arg2, argn }
 ~Name: Type { arg1, arg2, argn }
 
   .. Method Examples ..
