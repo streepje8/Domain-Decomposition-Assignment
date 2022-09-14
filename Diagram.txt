@@ -1,35 +1,55 @@
 @startuml
 
-title Properties / Methods - Class Diagram
-
-
+title Domain Decomposition Assignment
 skinparam componentStyle uml2
-class Car {
-  .. Field Examples ..
+
+'CLASSES
+
+class Cappy {
+  .. Fields ..
 - Name: Type { arg1, arg2, argn }
-+Name: Type { arg1, arg2, argn }
-#Name: Type { arg1, arg2, argn }
-#Name: Type { arg1, arg2, argn }
-~Name: Type { arg1, arg2, argn }
+  .. Methods ..
+-Throw(): void { Vector3 direction, Vector3 force }
 
-  .. Method Examples ..
--Name(): Type { arg1, arg2, argn }
-+Name(): Type { arg1, arg2, argn }
-#Name(): Type { arg1, arg2, argn }
-~Name(): Type { arg1, arg2, argn }
-~Name(): Type { arg1, arg2, argn }
-
-  .. Static Example ..
-+{static} Name(): Type { arg1, arg2, argn }
-
-  .. Abstract Example ..
-+{abstract} Name(): Type { arg1, arg2, argn }
 }
 
-class Car
-ICar ()- Car
-ICar2 ()-- Car
-Car -() ICar3
+abstract class InteractionInitiator {
+  .. Fields ..
+- Name: Type { arg1, arg2, argn }
+  .. Methods ..
+-OnTriggerEnter(): void { Collider other }
+
+}
+
+class Frog {
+  .. Fields ..
+- Name: Type { arg1, arg2, argn }
+  .. Methods ..
+-Update(): void { }
+
+}
+
+interface ICapturable {
+  .. Fields ..
+- Name: Type { arg1, arg2, argn }
+  .. Methods ..
+
+}
+
+interface IInteractable {
+  .. Fields ..
+- Name: Type { arg1, arg2, argn }
+  .. Methods ..
+-OnInteract(): void { InterationInitiator intiator }
+
+}
+
+'RELATIONS
+Cappy <|-down- InteractionInitiator: Extends
+IInteractable <|-up- InteractionInitiator: OnCollision With Calls OnInteract(this);
+Frog <|-down- ICapturable: Implements
+ICapturable <|-down- IInteractable: Implements
+
 
 note left
     This is a Note...
