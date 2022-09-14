@@ -4,51 +4,65 @@ title Domain Decomposition Assignment
 skinparam componentStyle uml2
 
 'CLASSES
-
 class Cappy {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- FlightSpeed: float
+- HasBounce: bool
+~ Direction: Vector3
+~ Force: Vector3
   .. Methods ..
+-Update(): void {}
 -Throw(): void { Vector3 direction, Vector3 force }
-
+}
+class Mario {
+  .. Fields ..
+- JumpForce: float
+- WalkSpeed: float
+  .. Methods ..
+-Update(): void { }
+-Jump(): void { }
 }
 
 abstract class InteractionInitiator {
-  .. Fields ..
-- Name: Type { arg1, arg2, argn }
   .. Methods ..
--OnTriggerEnter(): void { Collider other }
+-OnCollisionEnter(): void { Collider other }
 
 }
 
-class Frog {
+abstract class Capturable {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- InCapture: bool { get; private set; }
   .. Methods ..
--Update(): void { }
-
-}
-
-interface ICapturable {
-  .. Fields ..
-- Name: Type { arg1, arg2, argn }
-  .. Methods ..
-
+#OnCaptureStart(): virtual void {}
++CaptureUpdate(): abstract void {}
+#OnCaptureEnd(): virtual void {}
 }
 
 interface IInteractable {
   .. Fields ..
-- Name: Type { arg1, arg2, argn }
+- HasCooldown: bool
+- OnCooldown: bool { get; private set; }
+- CooldownTime: float { get; private set; }
   .. Methods ..
 -OnInteract(): void { InterationInitiator intiator }
 
 }
 
+class Frog {
+  .. Fields ..
+- JumpForce: float
+  .. Methods ..
+-Update(): void { }
+
+}
+
 'RELATIONS
-Cappy <|-down- InteractionInitiator: Extends
-IInteractable <|-up- InteractionInitiator: OnCollision With Calls OnInteract(this);
-Frog <|-down- ICapturable: Implements
-ICapturable <|-down- IInteractable: Implements
+InteractionInitiator <|-up- Cappy: Extends
+InteractionInitiator <|-up- Mario: ExtendsScratch area...
+Cappy <-left- Mario: Calls Throw function on user request
+IInteractable <-left- InteractionInitiator: OnCollision With Calls OnInteract(this);
+Capturable <|-up- Frog: Extends
+IInteractable <|-up- Capturable: Implements
 
 
 @enduml
