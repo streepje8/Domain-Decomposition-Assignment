@@ -3,6 +3,13 @@
 title Domain Decomposition Assignment
 skinparam componentStyle uml2
 
+Enum CoinType {
+  Normal,
+  Invisible,
+  Region,
+  CollectedRegion
+}
+
 'CLASSES
 'Base Stucture
 class Cappy {
@@ -16,6 +23,7 @@ class Cappy {
 ~Awake(): void {}
 ~Update(): void {}
 }
+
 class Mario {
   .. Fields ..
 - JumpForce: float
@@ -40,16 +48,24 @@ abstract class Capturable {
 #OnCaptureEnd(): virtual void {}
 }
 
-interface IInteractable {
+class Interactable {
   .. Fields ..
 - HasCooldown: bool
 - OnCooldown: bool { get; private set; }
 - CooldownTime: float { get; private set; }
   .. Methods ..
 -OnInteract(): public void { InterationInitiator intiator }
+#CapInteract(): virtual void { Cappy intiator }
+#MarioInteract(): virtual void { Mario intiator }
 
 }
 
+note left
+    This is the holy legendary note...
+    * We can not delete this for legal reasons
+    * It survived every merge, so we commit to it!
+    * All hail the holy note!
+end note
 
 'Example Implementations
 class Frog {
@@ -58,6 +74,38 @@ class Frog {
   .. Methods ..
 ~Awake(): void {}
 ~Update(): void {}
+}
+
+class Button {
+  .. Fields ..
+- OnClick: event
+  .. Methods ..
+-OnActivate(): public void {}
+-OnDeActivate(): public void {}
+}
+
+class Pipe {
+  .. Fields ..
+- Target: Pipe
+  .. Methods ..
+-OnEnter(): public void {}
+-OnExit(): public void {}
+}
+
+class Chest {
+  .. Fields ..
+- Contains: GameObject
+- IsOpened: bool { get; private set; }
+  .. Methods ..
+-OnOpened(): public void {}
+-Reset(): public void {}
+}
+
+class Coin {
+  .. Fields ..
+- Type: CoinType
+  .. Methods ..
+-OnPickup(): public void {}
 }
 
 class TRex {
@@ -88,13 +136,16 @@ class Glydon {
 InteractionInitiator <|-up- Cappy: Extends
 InteractionInitiator <|-up- Mario: Extends
 Cappy <-left- Mario: Calls Throw function on user request
-IInteractable <-left- InteractionInitiator: OnCollision With Calls OnInteract(this);
-IInteractable <|-up- Capturable: Implements
+Interactable <-left- InteractionInitiator: OnCollision With Calls OnInteract(this);
+Interactable <|-up- Capturable: Extends
 
 'Example implementations
 Capturable <|-up- Frog: Extends
 Capturable <|-up- TRex: Extends
 Capturable <|-up- Glydon: Extends
-
+Interactable <|-up- Button: Extends
+Interactable <|-up- Pipe: Extends
+Interactable <|-right- Chest: Extends
+Interactable <|-up- Coin: Extends
 
 @enduml
