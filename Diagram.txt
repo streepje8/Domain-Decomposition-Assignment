@@ -13,6 +13,14 @@ class Cappy {
 
 }
 
+abstract class InteractionInitiator {
+  .. Fields ..
+- Name: Type { arg1, arg2, argn }
+  .. Methods ..
+-OnTriggerEnter(): void { Collider other }
+
+}
+
 class Frog {
   .. Fields ..
 - Name: Type { arg1, arg2, argn }
@@ -25,7 +33,6 @@ interface ICapturable {
   .. Fields ..
 - Name: Type { arg1, arg2, argn }
   .. Methods ..
--Capture(): void { Cappy captor }
 
 }
 
@@ -33,12 +40,15 @@ interface IInteractable {
   .. Fields ..
 - Name: Type { arg1, arg2, argn }
   .. Methods ..
--Capture(): void { Cappy captor }
+-OnInteract(): void { InterationInitiator intiator }
 
 }
 
 'RELATIONS
+Cappy <|-down- InteractionInitiator: Extends
+IInteractable <|-up- InteractionInitiator: OnCollision With Calls OnInteract(this);
 Frog <|-down- ICapturable: Implements
+ICapturable <|-down- IInteractable: Implements
 
 
 @enduml
